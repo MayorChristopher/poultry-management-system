@@ -1,0 +1,28 @@
+# Next.js
+.next/
+out/
+
+.qodo/
+
+# Dependencies
+node_modules/
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.staging.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# IDEs and other tools
+.vscode/
+.idea/
+.DS_Store
+*.log
+*.tsbuildinfo
