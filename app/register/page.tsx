@@ -32,48 +32,45 @@ export default function RegisterPage() {
       return
     }
 
-    try {
-      const { data, error } = await signUp(email, password)
-      
-      if (error) {
-        setError(error.message)
-      } else if (data.user) {
-        router.push('/dashboard')
-      }
-    } catch (err) {
-      setError('An unexpected error occurred. Please try again.')
-      console.error('Registration error:', err)
+    const { data, error } = await signUp(email, password)
+    
+    if (error) {
+      setError(error.message)
+    } else if (data.user) {
+      router.push('/dashboard')
     }
     
     setLoading(false)
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <div className="flex justify-center">
-            <Bird className="h-12 w-12 text-green-600" />
+            <div className="p-3 bg-gray-200 border border-gray-300">
+              <Bird className="h-8 w-8 text-gray-700" />
+            </div>
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">
-            Create your account
+          <h2 className="mt-6 text-2xl font-semibold text-gray-900 uppercase tracking-wide">
+            Create Account
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Join Poultry Man and start managing your farm
+          <p className="mt-2 text-sm text-gray-600 uppercase tracking-wide">
+            Poultry Management System
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8">
+        <div className="bg-white border border-gray-300 shadow-sm p-8">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md">
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 text-sm">
                 {error}
               </div>
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 uppercase tracking-wide">
+                Email Address
               </label>
               <input
                 id="email"
@@ -83,13 +80,13 @@ export default function RegisterPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                placeholder="Enter your email"
+                className="mt-1 block w-full px-3 py-3 border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500"
+                placeholder="Enter your email address"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 uppercase tracking-wide">
                 Password
               </label>
               <div className="mt-1 relative">
@@ -101,7 +98,7 @@ export default function RegisterPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                  className="block w-full px-3 py-3 pr-10 border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500"
                   placeholder="Enter your password"
                 />
                 <button
@@ -119,7 +116,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 uppercase tracking-wide">
                 Confirm Password
               </label>
               <input
@@ -130,7 +127,7 @@ export default function RegisterPage() {
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                className="mt-1 block w-full px-3 py-3 border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500"
                 placeholder="Confirm your password"
               />
             </div>
@@ -139,17 +136,17 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex justify-center py-3 px-4 border border-gray-600 shadow-sm text-sm font-medium uppercase tracking-wide text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
               >
-                {loading ? 'Creating account...' : 'Create account'}
+                {loading ? 'Creating account...' : 'Create Account'}
               </button>
             </div>
 
             <div className="text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 uppercase tracking-wide">
                 Already have an account?{' '}
-                <Link href="/login" className="font-medium text-green-600 hover:text-green-500">
-                  Sign in
+                <Link href="/login" className="font-medium text-gray-800 hover:text-gray-900 underline">
+                  Sign In
                 </Link>
               </p>
             </div>
