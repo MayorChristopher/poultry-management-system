@@ -14,15 +14,15 @@ export default function SensorCard({ title, value, unit, type, icon }: SensorCar
   
   return (
     <div className="bg-white border border-gray-300 shadow-sm hover:shadow-md transition-shadow duration-200">
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-6">
+      <div className="p-4 lg:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 lg:mb-6 space-y-3 sm:space-y-0">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-gray-100 border border-gray-200">
+            <div className="p-2 bg-gray-100 border border-gray-200 flex-shrink-0">
               {icon}
             </div>
             <h3 className="text-sm font-medium text-gray-700 uppercase tracking-wide">{title}</h3>
           </div>
-          <div className={`px-2 py-1 text-xs font-medium uppercase tracking-wide border ${
+          <div className={`px-2 py-1 text-xs font-medium uppercase tracking-wide border self-start sm:self-auto ${
             statusText === 'Normal' ? 'bg-green-50 text-green-700 border-green-200' :
             statusText === 'Warning' ? 'bg-amber-50 text-amber-700 border-amber-200' :
             'bg-red-50 text-red-700 border-red-200'
@@ -32,7 +32,7 @@ export default function SensorCard({ title, value, unit, type, icon }: SensorCar
         </div>
         
         <div className="flex items-baseline space-x-2 mb-4">
-          <span className={`text-2xl font-bold tabular-nums ${statusColor}`}>
+          <span className={`text-xl lg:text-2xl font-bold tabular-nums ${statusColor}`}>
             {value}
           </span>
           <span className="text-sm text-gray-500 font-medium">{unit}</span>

@@ -11,6 +11,7 @@ import SensorCard from '@/components/SensorCard'
 import LineChart from '@/components/LineChart'
 import StatusIndicator from '@/components/StatusIndicator'
 import { Bird, Thermometer, Droplets, Gauge, Wheat, LogOut, Settings, FileText, User } from 'lucide-react'
+import ResponsiveNav from '@/components/ResponsiveNav'
 
 export default function Dashboard() {
   const [user, setUser] = useState<any>(null)
@@ -134,83 +135,51 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
-      <header className="bg-white border-b border-gray-300 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-4">
-              <div className="p-2 bg-gray-100 border border-gray-300">
-                <Bird className="h-6 w-6 text-gray-700" />
-              </div>
-              <h1 className="text-xl font-semibold text-gray-900 uppercase tracking-wide">Poultry Management System</h1>
-            </div>
-            
-            <div className="flex items-center space-x-6">
-              <StatusIndicator 
-                status={getOverallStatus()} 
-                label={`System ${getOverallStatus().charAt(0).toUpperCase() + getOverallStatus().slice(1)}`}
-              />
-              
-              <nav className="flex space-x-1">
-                <Link
-                  href="/"
-                  className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-transparent hover:border-gray-300 transition-all duration-200"
-                >
-                  <Bird className="h-4 w-4" />
-                  <span className="uppercase tracking-wide font-medium">Home</span>
-                </Link>
-                
-                <Link
-                  href="/logs"
-                  className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-transparent hover:border-gray-300 transition-all duration-200"
-                >
-                  <FileText className="h-4 w-4" />
-                  <span className="uppercase tracking-wide font-medium">Logs</span>
-                </Link>
-                
-                {profile?.role === 'admin' && (
-                  <Link
-                    href="/controls"
-                    className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-transparent hover:border-gray-300 transition-all duration-200"
-                  >
-                    <Settings className="h-4 w-4" />
-                    <span className="uppercase tracking-wide font-medium">Controls</span>
-                  </Link>
-                )}
-              </nav>
-              
-              <div className="flex items-center space-x-4 pl-6 border-l border-gray-300">
-                <div className="flex items-center space-x-3">
-                  <div className="p-1 bg-gray-100 border border-gray-300">
-                    <User className="h-4 w-4 text-gray-600" />
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-gray-900">{user?.email}</p>
-                    <p className="text-xs text-gray-500 uppercase tracking-wide">{profile?.role} Access</p>
-                  </div>
-                </div>
-                <button
-                  onClick={handleSignOut}
-                  className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 border border-transparent hover:border-gray-300 transition-all duration-200"
-                  title="Sign Out"
-                >
-                  <LogOut className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ResponsiveNav user={user} profile={profile} onSignOut={handleSignOut}>
+        <StatusIndicator 
+          status={getOverallStatus()} 
+          label={`System ${getOverallStatus().charAt(0).toUpperCase() + getOverallStatus().slice(1)}`}
+        />
+        
+        <nav className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-1">
+          <Link
+            href="/"
+            className="flex items-center space-x-2 px-3 lg:px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-transparent hover:border-gray-300 transition-all duration-200"
+          >
+            <Bird className="h-4 w-4" />
+            <span className="uppercase tracking-wide font-medium">Home</span>
+          </Link>
+          
+          <Link
+            href="/logs"
+            className="flex items-center space-x-2 px-3 lg:px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-transparent hover:border-gray-300 transition-all duration-200"
+          >
+            <FileText className="h-4 w-4" />
+            <span className="uppercase tracking-wide font-medium">Logs</span>
+          </Link>
+          
+          {profile?.role === 'admin' && (
+            <Link
+              href="/controls"
+              className="flex items-center space-x-2 px-3 lg:px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-transparent hover:border-gray-300 transition-all duration-200"
+            >
+              <Settings className="h-4 w-4" />
+              <span className="uppercase tracking-wide font-medium">Controls</span>
+            </Link>
+          )}
+        </nav>
+      </ResponsiveNav>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
         {/* System Status Header */}
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-900 uppercase tracking-wide mb-2">Environmental Monitoring</h2>
+        <div className="mb-6 lg:mb-8">
+          <h2 className="text-base lg:text-lg font-semibold text-gray-900 uppercase tracking-wide mb-2">Environmental Monitoring</h2>
           <p className="text-sm text-gray-600">Real-time sensor data and system status</p>
         </div>
 
         {/* Sensor Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-12">
           <SensorCard
             title="Temperature"
             value={sensorData.temperature}
@@ -242,12 +211,12 @@ export default function Dashboard() {
         </div>
 
         {/* Charts Section */}
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-900 uppercase tracking-wide mb-2">Trend Analysis</h2>
-          <p className="text-sm text-gray-600 mb-6">Historical data visualization</p>
+        <div className="mb-6 lg:mb-8">
+          <h2 className="text-base lg:text-lg font-semibold text-gray-900 uppercase tracking-wide mb-2">Trend Analysis</h2>
+          <p className="text-sm text-gray-600 mb-4 lg:mb-6">Historical data visualization</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
           <LineChart
             data={temperatureHistory}
             title="Temperature Trend"

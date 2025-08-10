@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { getCurrentUser, signOut } from '@/lib/auth'
 import { Bird, Shield, Egg, Settings, BarChart3, CheckCircle, ArrowRight, LogOut, User, ChevronLeft, ChevronRight } from 'lucide-react'
+import ResponsiveNav from '@/components/ResponsiveNav'
 
 export default function LandingPage() {
   const [user, setUser] = useState<any>(null)
@@ -81,96 +82,65 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
-      <header className="bg-white border-b border-gray-300 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-4">
-              <div className="p-2 bg-gray-100 border border-gray-300">
-                <Bird className="h-6 w-6 text-gray-700" />
-              </div>
-              <h1 className="text-xl font-semibold text-gray-900 uppercase tracking-wide">Poultry Management System</h1>
-            </div>
-            
-            <div className="flex items-center space-x-6">
-              <nav className="hidden md:flex space-x-1">
-                <a href="#system" className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-transparent hover:border-gray-300 transition-all duration-200 uppercase tracking-wide font-medium">System</a>
-                <a href="#features" className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-transparent hover:border-gray-300 transition-all duration-200 uppercase tracking-wide font-medium">Features</a>
-              </nav>
-              
-              <div className="flex items-center space-x-4 pl-6 border-l border-gray-300">
-                {user ? (
-                  // Logged in user
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="p-1 bg-gray-100 border border-gray-300">
-                        <User className="h-4 w-4 text-gray-600" />
-                      </div>
-                      <div className="text-right">
-                        <p className="text-sm font-medium text-gray-900">{user.email}</p>
-                        <p className="text-xs text-gray-500 uppercase tracking-wide">System Access</p>
-                      </div>
-                    </div>
-                    <Link
-                      href="/dashboard"
-                      className="px-4 py-2 bg-gray-800 text-white border border-gray-600 hover:bg-gray-900 font-medium transition-all duration-200 uppercase tracking-wide text-sm"
-                    >
-                      Dashboard
-                    </Link>
-                    <button
-                      onClick={handleSignOut}
-                      className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 border border-transparent hover:border-gray-300 transition-all duration-200"
-                      title="Sign Out"
-                    >
-                      <LogOut className="h-4 w-4" />
-                    </button>
-                  </div>
-                ) : (
-                  // Not logged in
-                  <div className="flex space-x-3">
-                    <Link
-                      href="/login"
-                      className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 font-medium border border-transparent hover:border-gray-300 hover:bg-gray-100 transition-all duration-200 uppercase tracking-wide"
-                    >
-                      Sign In
-                    </Link>
-                    <Link
-                      href="/register"
-                      className="px-4 py-2 bg-gray-800 text-white border border-gray-600 hover:bg-gray-900 font-medium transition-all duration-200 uppercase tracking-wide text-sm"
-                    >
-                      Register
-                    </Link>
-                  </div>
-                )}
-              </div>
-            </div>
+      <ResponsiveNav user={user} onSignOut={handleSignOut}>
+        <nav className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-1">
+          <a href="#system" className="px-3 lg:px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-transparent hover:border-gray-300 transition-all duration-200 uppercase tracking-wide font-medium">System</a>
+          <a href="#features" className="px-3 lg:px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-transparent hover:border-gray-300 transition-all duration-200 uppercase tracking-wide font-medium">Features</a>
+        </nav>
+        
+        {!user && (
+          <div className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-3 lg:pl-6 lg:border-l border-gray-300">
+            <Link
+              href="/login"
+              className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 font-medium border border-transparent hover:border-gray-300 hover:bg-gray-100 transition-all duration-200 uppercase tracking-wide text-center"
+            >
+              Sign In
+            </Link>
+            <Link
+              href="/register"
+              className="px-4 py-2 bg-gray-800 text-white border border-gray-600 hover:bg-gray-900 font-medium transition-all duration-200 uppercase tracking-wide text-sm text-center"
+            >
+              Register
+            </Link>
           </div>
-        </div>
-      </header>
+        )}
+        
+        {user && (
+          <div className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-3 lg:pl-6 lg:border-l border-gray-300">
+            <Link
+              href="/dashboard"
+              className="px-4 py-2 bg-gray-800 text-white border border-gray-600 hover:bg-gray-900 font-medium transition-all duration-200 uppercase tracking-wide text-sm text-center"
+            >
+              Dashboard
+            </Link>
+          </div>
+        )}
+      </ResponsiveNav>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         {/* System Overview */}
-        <section id="system" className="mb-16">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <div className="space-y-6">
+        <section id="system" className="mb-12 lg:mb-16">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="space-y-6 lg:space-y-8">
+              <div className="space-y-4 lg:space-y-6">
                 <div className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-700 text-sm font-medium uppercase tracking-wide border border-gray-300">
                   Professional Farm Management
                 </div>
-                <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 uppercase tracking-wide leading-tight">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 uppercase tracking-wide leading-tight">
                   Poultry Management System
                 </h1>
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="text-base lg:text-lg text-gray-600 leading-relaxed">
                   Comprehensive monitoring, automated controls, and detailed logging for professional poultry operations. 
                   Maximize productivity while ensuring optimal animal welfare through systematic management.
                 </p>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
                 {user ? (
                   <Link
                     href="/dashboard"
-                    className="px-8 py-4 bg-gray-800 text-white border border-gray-600 hover:bg-gray-900 font-medium transition-all duration-200 uppercase tracking-wide text-sm flex items-center justify-center"
+                    className="px-6 lg:px-8 py-3 lg:py-4 bg-gray-800 text-white border border-gray-600 hover:bg-gray-900 font-medium transition-all duration-200 uppercase tracking-wide text-sm flex items-center justify-center"
                   >
                     <BarChart3 className="w-4 h-4 mr-2" />
                     Access Dashboard
@@ -179,14 +149,14 @@ export default function LandingPage() {
                   <>
                     <Link
                       href="/dashboard"
-                      className="px-8 py-4 bg-gray-800 text-white border border-gray-600 hover:bg-gray-900 font-medium transition-all duration-200 uppercase tracking-wide text-sm flex items-center justify-center"
+                      className="px-6 lg:px-8 py-3 lg:py-4 bg-gray-800 text-white border border-gray-600 hover:bg-gray-900 font-medium transition-all duration-200 uppercase tracking-wide text-sm flex items-center justify-center"
                     >
                       <BarChart3 className="w-4 h-4 mr-2" />
                       View System
                     </Link>
                     <Link
                       href="/register"
-                      className="px-8 py-4 bg-white text-gray-900 border border-gray-300 hover:bg-gray-100 font-medium transition-all duration-200 uppercase tracking-wide text-sm flex items-center justify-center"
+                      className="px-6 lg:px-8 py-3 lg:py-4 bg-white text-gray-900 border border-gray-300 hover:bg-gray-100 font-medium transition-all duration-200 uppercase tracking-wide text-sm flex items-center justify-center"
                     >
                       Get Access
                       <ArrowRight className="w-4 h-4 ml-2" />
@@ -195,7 +165,7 @@ export default function LandingPage() {
                 )}
               </div>
 
-              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-300">
+              <div className="grid grid-cols-3 gap-4 lg:gap-6 pt-6 lg:pt-8 border-t border-gray-300">
                 <div className="text-center">
                   <CheckCircle className="w-5 h-5 text-gray-600 mx-auto mb-2" />
                   <span className="text-sm text-gray-600 uppercase tracking-wide font-medium">Real-time Data</span>
@@ -212,9 +182,9 @@ export default function LandingPage() {
             </div>
 
             {/* Slideshow Section */}
-            <div className="relative">
+            <div className="relative mt-8 lg:mt-0">
               <div className="bg-white border border-gray-300 shadow-sm overflow-hidden">
-                <div className="relative h-96">
+                <div className="relative h-64 sm:h-80 lg:h-96">
                   {farmImages.map((image, index) => (
                     <img
                       key={index}
@@ -229,15 +199,15 @@ export default function LandingPage() {
                   {/* Navigation Arrows */}
                   <button
                     onClick={prevSlide}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 text-white hover:bg-black/70 transition-colors duration-200"
+                    className="absolute left-2 lg:left-4 top-1/2 transform -translate-y-1/2 p-3 lg:p-2 bg-black/50 text-white hover:bg-black/70 transition-colors duration-200 btn-touch"
                   >
-                    <ChevronLeft className="h-5 w-5" />
+                    <ChevronLeft className="h-4 w-4 lg:h-5 lg:w-5" />
                   </button>
                   <button
                     onClick={nextSlide}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 text-white hover:bg-black/70 transition-colors duration-200"
+                    className="absolute right-2 lg:right-4 top-1/2 transform -translate-y-1/2 p-3 lg:p-2 bg-black/50 text-white hover:bg-black/70 transition-colors duration-200 btn-touch"
                   >
-                    <ChevronRight className="h-5 w-5" />
+                    <ChevronRight className="h-4 w-4 lg:h-5 lg:w-5" />
                   </button>
 
                   {/* Slide Indicators */}
@@ -246,7 +216,7 @@ export default function LandingPage() {
                       <button
                         key={index}
                         onClick={() => setCurrentSlide(index)}
-                        className={`w-2 h-2 border border-white transition-colors duration-200 ${
+                        className={`w-3 h-3 lg:w-2 lg:h-2 border border-white transition-colors duration-200 touch-target ${
                           index === currentSlide ? 'bg-white' : 'bg-transparent'
                         }`}
                       />
@@ -254,13 +224,13 @@ export default function LandingPage() {
                   </div>
                 </div>
                 
-                <div className="absolute bottom-0 left-0 right-0 bg-white/95 border-t border-gray-300 p-4">
-                  <div className="flex items-center justify-between">
+                <div className="absolute bottom-0 left-0 right-0 bg-white/95 border-t border-gray-300 p-3 lg:p-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
                     <div>
-                      <p className="text-sm text-gray-600 uppercase tracking-wide font-medium">System Status</p>
-                      <p className="text-xl font-bold text-gray-900">Production Environment</p>
+                      <p className="text-xs lg:text-sm text-gray-600 uppercase tracking-wide font-medium">System Status</p>
+                      <p className="text-lg lg:text-xl font-bold text-gray-900">Production Environment</p>
                     </div>
-                    <div className="px-2 py-1 bg-green-50 text-green-700 border border-green-200 text-xs font-medium uppercase tracking-wide">
+                    <div className="px-2 py-1 bg-green-50 text-green-700 border border-green-200 text-xs font-medium uppercase tracking-wide self-start sm:self-auto">
                       Operational
                     </div>
                   </div>
@@ -271,27 +241,27 @@ export default function LandingPage() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="mb-16">
-          <div className="mb-12">
+        <section id="features" className="mb-12 lg:mb-16">
+          <div className="mb-8 lg:mb-12">
             <div className="inline-flex items-center px-3 py-1 bg-gray-200 text-gray-700 text-sm font-medium uppercase tracking-wide border border-gray-300 mb-4">
               System Capabilities
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 uppercase tracking-wide mb-4">
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 uppercase tracking-wide mb-4">
               Management Features
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl">
+            <p className="text-base lg:text-lg text-gray-600 max-w-3xl">
               Comprehensive tools for professional poultry farm operations with integrated monitoring and control systems.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             <div className="bg-white border border-gray-300 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <div className="p-8">
-                <div className="flex items-center mb-6">
-                  <div className="p-2 bg-gray-100 border border-gray-200 mr-4">
+              <div className="p-6 lg:p-8">
+                <div className="flex flex-col sm:flex-row sm:items-center mb-4 lg:mb-6 space-y-3 sm:space-y-0">
+                  <div className="p-2 bg-gray-100 border border-gray-200 sm:mr-4 self-start">
                     <Egg className="h-5 w-5 text-gray-600" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 uppercase tracking-wide">Environmental Monitoring</h3>
+                  <h3 className="text-base lg:text-lg font-semibold text-gray-900 uppercase tracking-wide">Environmental Monitoring</h3>
                 </div>
                 <p className="text-gray-600 leading-relaxed">
                   Continuous tracking of temperature, humidity, air quality, and environmental conditions with precise sensor data and automated alerts.
@@ -300,12 +270,12 @@ export default function LandingPage() {
             </div>
 
             <div className="bg-white border border-gray-300 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <div className="p-8">
-                <div className="flex items-center mb-6">
-                  <div className="p-2 bg-gray-100 border border-gray-200 mr-4">
+              <div className="p-6 lg:p-8">
+                <div className="flex flex-col sm:flex-row sm:items-center mb-4 lg:mb-6 space-y-3 sm:space-y-0">
+                  <div className="p-2 bg-gray-100 border border-gray-200 sm:mr-4 self-start">
                     <Settings className="h-5 w-5 text-gray-600" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 uppercase tracking-wide">System Controls</h3>
+                  <h3 className="text-base lg:text-lg font-semibold text-gray-900 uppercase tracking-wide">System Controls</h3>
                 </div>
                 <p className="text-gray-600 leading-relaxed">
                   Remote operation of feeding systems, water management, and climate controls with scheduled automation and manual override capabilities.
@@ -313,13 +283,13 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="bg-white border border-gray-300 shadow-sm hover:shadow-md transition-shadow duration-200">
-              <div className="p-8">
-                <div className="flex items-center mb-6">
-                  <div className="p-2 bg-gray-100 border border-gray-200 mr-4">
+            <div className="bg-white border border-gray-300 shadow-sm hover:shadow-md transition-shadow duration-200 md:col-span-2 lg:col-span-1">
+              <div className="p-6 lg:p-8">
+                <div className="flex flex-col sm:flex-row sm:items-center mb-4 lg:mb-6 space-y-3 sm:space-y-0">
+                  <div className="p-2 bg-gray-100 border border-gray-200 sm:mr-4 self-start">
                     <Shield className="h-5 w-5 text-gray-600" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 uppercase tracking-wide">Data Management</h3>
+                  <h3 className="text-base lg:text-lg font-semibold text-gray-900 uppercase tracking-wide">Data Management</h3>
                 </div>
                 <p className="text-gray-600 leading-relaxed">
                   Comprehensive logging of system activities, environmental data, and operational metrics with detailed reporting and analysis tools.

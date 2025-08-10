@@ -32,11 +32,33 @@ export default function LogsTable({ logs }: LogsTableProps) {
   
   return (
     <div className="overflow-hidden">
-      <div className="px-6 py-4 border-b border-gray-300 bg-gray-50">
+      <div className="px-4 lg:px-6 py-3 lg:py-4 border-b border-gray-300 bg-gray-50">
         <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide">Recent Activity</h3>
       </div>
       
-      <div className="overflow-x-auto">
+      {/* Mobile Card View */}
+      <div className="block lg:hidden">
+        <div className="divide-y divide-gray-200">
+          {logs.map((log) => (
+            <div key={log.id} className="p-4 hover:bg-gray-50 transition-colors duration-150">
+              <div className="flex items-start justify-between mb-2">
+                <span className={`inline-flex px-2 py-1 text-xs font-medium uppercase tracking-wide border ${getTypeColor(log.type)}`}>
+                  {log.type}
+                </span>
+                <span className="text-xs text-gray-500 font-mono ml-2">
+                  {formatTime(log.timestamp)}
+                </span>
+              </div>
+              <p className="text-sm text-gray-900 font-medium">
+                {log.message}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      {/* Desktop Table View */}
+      <div className="hidden lg:block overflow-x-auto">
         <table className="w-full">
           <thead className="bg-gray-100 border-b border-gray-300">
             <tr>
@@ -72,7 +94,7 @@ export default function LogsTable({ logs }: LogsTableProps) {
       </div>
       
       {logs.length === 0 && (
-        <div className="px-6 py-12 text-center">
+        <div className="px-4 lg:px-6 py-8 lg:py-12 text-center">
           <p className="text-sm text-gray-500 uppercase tracking-wide">No log entries found</p>
         </div>
       )}

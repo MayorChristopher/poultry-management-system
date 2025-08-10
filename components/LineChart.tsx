@@ -111,9 +111,9 @@ export default function LineChart({ data, title, color, unit }: LineChartProps) 
   }, [data, color, unit])
   
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-800 mb-4">{title}</h3>
-      <div className="relative h-64">
+    <div className="bg-white border border-gray-300 shadow-sm p-4 lg:p-6">
+      <h3 className="text-sm lg:text-base font-semibold text-gray-800 mb-3 lg:mb-4 uppercase tracking-wide">{title}</h3>
+      <div className="relative h-40 sm:h-48 lg:h-64">
         <canvas
           ref={canvasRef}
           className="w-full h-full"

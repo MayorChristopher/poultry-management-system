@@ -31,15 +31,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-8 lg:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-6 lg:space-y-8">
         <div className="text-center">
           <div className="flex justify-center">
             <div className="p-3 bg-gray-200 border border-gray-300">
-              <Bird className="h-8 w-8 text-gray-700" />
+              <Bird className="h-6 w-6 lg:h-8 lg:w-8 text-gray-700" />
             </div>
           </div>
-          <h2 className="mt-6 text-2xl font-semibold text-gray-900 uppercase tracking-wide">
+          <h2 className="mt-4 lg:mt-6 text-xl lg:text-2xl font-semibold text-gray-900 uppercase tracking-wide">
             System Access
           </h2>
           <p className="mt-2 text-sm text-gray-600 uppercase tracking-wide">
@@ -47,16 +47,16 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <div className="bg-white border border-gray-300 shadow-sm p-8">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+        <div className="bg-white border border-gray-300 shadow-sm p-6 lg:p-8">
+          <form className="space-y-5 lg:space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 text-sm">
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 text-sm rounded-none">
                 {error}
               </div>
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 uppercase tracking-wide">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 uppercase tracking-wide mb-2">
                 Email Address
               </label>
               <input
@@ -67,16 +67,16 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full px-3 py-3 border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500"
+                className="block w-full px-3 py-3 border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500 text-base"
                 placeholder="Enter your email address"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 uppercase tracking-wide">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 uppercase tracking-wide mb-2">
                 Password
               </label>
-              <div className="mt-1 relative">
+              <div className="relative">
                 <input
                   id="password"
                   name="password"
@@ -85,7 +85,7 @@ export default function LoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full px-3 py-3 pr-10 border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500"
+                  className="block w-full px-3 py-3 pr-12 border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500 text-base"
                   placeholder="Enter your password"
                 />
                 <button
@@ -102,17 +102,17 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div>
+            <div className="pt-2">
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-3 px-4 border border-gray-600 shadow-sm text-sm font-medium uppercase tracking-wide text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                className="w-full flex justify-center py-3 lg:py-4 px-4 border border-gray-600 shadow-sm text-sm lg:text-base font-medium uppercase tracking-wide text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
               >
                 {loading ? 'Authenticating...' : 'Sign In'}
               </button>
             </div>
 
-            <div className="text-center">
+            <div className="text-center pt-2">
               <p className="text-sm text-gray-600 uppercase tracking-wide">
                 {"Need Access? "}
                 <Link href="/register" className="font-medium text-gray-800 hover:text-gray-900 underline">

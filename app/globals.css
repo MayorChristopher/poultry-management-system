@@ -1,6 +1,25 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+/* Responsive font loading */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1025px) {
+  html {
+    font-size: 16px;
+  }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -119,5 +138,120 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Responsive text utilities */
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm;
+  }
+  .text-responsive-sm {
+    @apply text-sm sm:text-base;
+  }
+  .text-responsive-base {
+    @apply text-base sm:text-lg;
+  }
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl;
+  }
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl;
+  }
+  
+  /* Responsive spacing utilities */
+  .space-responsive {
+    @apply space-y-4 sm:space-y-6 lg:space-y-8;
+  }
+  .gap-responsive {
+    @apply gap-4 sm:gap-6 lg:gap-8;
+  }
+  .p-responsive {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+  .px-responsive {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  .py-responsive {
+    @apply py-4 sm:py-6 lg:py-8;
+  }
+  
+  /* Mobile-first container */
+  .container-responsive {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Responsive grid utilities */
+  .grid-responsive-cards {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+  }
+  .grid-responsive-features {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+  }
+  .grid-responsive-charts {
+    @apply grid grid-cols-1 xl:grid-cols-2;
+  }
+  
+  /* Touch-friendly buttons */
+  .btn-touch {
+    @apply min-h-[44px] min-w-[44px] touch-manipulation;
+  }
+  
+  /* Enhanced mobile interactions */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] touch-manipulation select-none;
+  }
+  
+  /* Mobile-optimized text selection */
+  .no-select {
+    @apply select-none;
+  }
+  
+  /* Responsive table utilities */
+  .table-responsive {
+    @apply overflow-x-auto;
+  }
+  
+  /* Mobile card layouts */
+  .mobile-card {
+    @apply block lg:hidden;
+  }
+  
+  .desktop-table {
+    @apply hidden lg:block;
+  }
+  
+  /* Responsive image utilities */
+  .img-responsive {
+    @apply w-full h-auto object-cover;
+  }
+  
+  /* Safe area utilities for mobile */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* Responsive overflow handling */
+  .overflow-responsive {
+    @apply overflow-hidden sm:overflow-visible;
+  }
+  
+  /* Mobile-first flex utilities */
+  .flex-responsive {
+    @apply flex flex-col sm:flex-row;
+  }
+  
+  /* Responsive aspect ratios */
+  .aspect-responsive {
+    @apply aspect-video sm:aspect-square lg:aspect-video;
   }
 }
